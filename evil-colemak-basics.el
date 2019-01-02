@@ -70,54 +70,57 @@ rotated; see evil-colemak-basics-rotate-t-f-j."
       "ge" 'evil-previous-visual-line
       "E" 'evil-lookup
       "i" 'evil-forward-char
-      "j" 'evil-forward-word-end
-      "J" 'evil-forward-WORD-end
-      "gj" 'evil-backward-word-end
-      "gJ" 'evil-backward-WORD-end
+
+      "l" 'evil-backward-word-begin
+      "L" 'evil-backward-WORD-begin
+      "y" 'evil-forward-word-begin
+      "Y" 'evil-forward-WORD-begin
+      "u" 'evil-forward-word-end
+      "U" 'evil-forward-WORD-end
+
       "k" 'evil-search-next
       "K" 'evil-search-previous
-      "gk" 'evil-next-match
-      "gK" 'evil-previous-match
-      "zi" 'evil-scroll-column-right
-      "zI" 'evil-scroll-right)
+
+      ;; "gk" 'evil-next-match
+      ;; "gK" 'evil-previous-match
+      ;; "zi" 'evil-scroll-column-right
+      ;; "zI" 'evil-scroll-right
+      )
+
     (evil-define-key '(normal visual) keymap
-      "l" 'undo-tree-undo
-      "N" 'evil-join
-      "gN" 'evil-join-whitespace)
+      "a" 'evil-visual-char
+      "A" 'evil-visual-line
+
+      "z" 'undo-tree-undo
+      "Z" 'undo-tree-redo
+      "X" 'evil-delete-line
+      "c" 'evil-yank
+      "C" 'evil-yank-line
+      "v" 'evil-paste-after
+      "V" 'evil-paste-before
+      "gv" 'evil-paste-after
+      "gV" 'evil-paste-before
+
+      "jz" 'evil-scroll-line-to-center
+      "jj" 'evil-scroll-line-to-center)
+
     (evil-define-key 'normal keymap
-      "u" 'evil-insert
-      "U" 'evil-insert-line)
-    (evil-define-key 'visual keymap
-      "U" 'evil-insert)
+      "s" 'evil-insert
+      "S" 'evil-insert-line
+      "t" 'evil-append
+      "T" 'evil-append-line
+      "w" 'evil-change
+      "W" 'evil-change-line)
+
     (evil-define-key '(visual operator) keymap
-      "u" evil-inner-text-objects-map)
-    (evil-define-key 'operator keymap
-      "i" 'evil-forward-char)
-    (when evil-colemak-basics-rotate-t-f-j
-      (evil-define-key '(motion normal visual) keymap
-        "f" 'evil-forward-word-end
-        "F" 'evil-forward-WORD-end
-        "gf" 'evil-backward-word-end
-        "gF" 'evil-backward-WORD-end
-        "gt" 'find-file-at-point
-        "gT" 'evil-find-file-at-point-with-line)
-      (cond
-       ((eq evil-colemak-basics-char-jump-commands nil)
-        (evil-define-key '(motion normal visual) keymap
-            "t" 'evil-find-char
-            "T" 'evil-find-char-backward
-            "j" 'evil-find-char-to
-            "J" 'evil-find-char-to-backward))
-       ((eq evil-colemak-basics-char-jump-commands 'evil-snipe)
-        ;; XXX https://github.com/hlissner/evil-snipe/issues/46
-        (evil-snipe-def 1 inclusive "t" "T")
-        (evil-snipe-def 1 exclusive "j" "J")
-        (evil-define-key '(motion normal visual) keymap
-          "t" 'evil-snipe-t
-          "T" 'evil-snipe-T
-          "j" 'evil-snipe-j
-          "J" 'evil-snipe-J))
-       (t (user-error "Invalid evil-colemak-basics-char-jump-commands configuration"))))
+      "r" evil-inner-text-objects-map)
+
+    (evil-define-key '(normal visual operator) keymap
+      "p" 'evil-find-char-to
+      "P" 'evil-find-char
+      "b" 'evil-repeat-find-char
+      "B" 'evil-repeat-find-char-reverse)
+
     keymap))
 
 (defvar evil-colemak-basics-keymap
